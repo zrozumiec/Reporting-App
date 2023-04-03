@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Moq;
-using ReportingApp.Application.CQRS.Queries.Category.GetCategoryByName;
+using ReportingApp.Application.CQRS.Queries.Status.GetStatusByName;
 using ReportingApp.Application.DTO;
 using ReportingApp.Domain.Entities;
 using ReportingApp.Domain.Interfaces;
