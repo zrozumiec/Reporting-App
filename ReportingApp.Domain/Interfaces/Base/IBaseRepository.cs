@@ -7,7 +7,7 @@ namespace ReportingApp.Domain.Interfaces.Base
     /// Interface for base repository.
     /// </summary>
     /// <typeparam name="T">Failure app entity.</typeparam>
-    public interface IBaseRepositroy<T>
+    public interface IBaseRepository<T>
         where T : BaseEntity
     {
         /// <summary>
@@ -41,9 +41,9 @@ namespace ReportingApp.Domain.Interfaces.Base
         Task<T?> GetByIdAsync(int id);
 
         /// <summary>
-        /// Returns all items existing in database.
+        /// Async method returns all items existing in database.
         /// </summary>
         /// <returns>All items of type T.</returns>
-        ICollection<T> GetAll();
+        Task<ICollection<T>> GetAllAsync();
     }
 }
