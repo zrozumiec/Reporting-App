@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using ReportingApp.Application.CQRS.Commands.Category.CreateCategory;
+using ReportingApp.Application.CQRS.Commands.Category.EditCategory;
 using ReportingApp.Application.DTO;
 using ReportingApp.Domain.Entities;
 
@@ -16,6 +18,10 @@ namespace ReportingApp.Application.MapperProfiles
         {
             this.CreateMap<FailureCategory, FailureCategoryDto>()
                 .ReverseMap();
+
+            this.CreateMap<CreateCategoryCommand, FailureCategory>();
+            this.CreateMap<FailureCategoryDto, EditCategoryCommand>();
+            this.CreateMap<EditCategoryCommand, FailureCategory>();
         }
     }
 }

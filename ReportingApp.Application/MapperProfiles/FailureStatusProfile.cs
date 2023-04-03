@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using ReportingApp.Application.CQRS.Commands.Status.CreateStatus;
+using ReportingApp.Application.CQRS.Commands.Status.EditStatus;
 using ReportingApp.Application.DTO;
 using ReportingApp.Domain.Entities;
 
@@ -16,6 +18,9 @@ namespace ReportingApp.Application.MapperProfiles
         {
             this.CreateMap<FailureStatus, FailureStatusDto>()
                 .ReverseMap();
+            this.CreateMap<CreateStatusCommand, FailureStatus>();
+            this.CreateMap<EditStatusCommand, FailureStatus>();
+            this.CreateMap<FailureStatusDto, EditStatusCommand>();
         }
     }
 }
