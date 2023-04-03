@@ -19,6 +19,9 @@ namespace ReportingApp.Infrastructure.Repository
         }
 
         /// <inheritdoc/>
+        protected override DbSet<FailureSolution> DbSet => this.DbContext.FailureSolutions;
+
+        /// <inheritdoc/>
         public override async Task<int> UpdateAsync(int id, FailureSolution newItem)
         {
             var solution = await this.DbSet.FindAsync(id);

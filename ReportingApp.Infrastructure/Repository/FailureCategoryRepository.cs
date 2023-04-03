@@ -20,6 +20,9 @@ namespace ReportingApp.Infrastructure.Repository
         }
 
         /// <inheritdoc/>
+        protected override DbSet<FailureCategory> DbSet => this.DbContext.FailureCategories;
+
+        /// <inheritdoc/>
         public async Task<FailureCategory?> GetByNameAsync(string name)
         {
             return await this.DbSet.FirstOrDefaultAsync(x => x.Name == name);

@@ -28,7 +28,7 @@ namespace ReportingApp.Infrastructure.Repository.Base
         /// <summary>
         /// Gets DbSet of type T.
         /// </summary>
-        protected DbSet<T> DbSet { get; }
+        protected abstract DbSet<T> DbSet { get; }
 
         /// <inheritdoc/>
         public async Task<int> AddAsync(T item)

@@ -19,6 +19,9 @@ namespace ReportingApp.Infrastructure.Repository
         }
 
         /// <inheritdoc/>
+        protected override DbSet<FailureLocation> DbSet => this.DbContext.FailureLocations;
+
+        /// <inheritdoc/>
         public override async Task<int> UpdateAsync(int id, FailureLocation newItem)
         {
             var location = await this.DbSet.FindAsync(id);
