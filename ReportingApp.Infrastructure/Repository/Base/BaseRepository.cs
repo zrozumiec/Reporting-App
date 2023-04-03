@@ -8,7 +8,7 @@ namespace ReportingApp.Infrastructure.Repository.Base
     /// Abstract base repository class.
     /// </summary>
     /// <typeparam name="T">ToDoApp item.</typeparam>
-    public abstract class BaseRepository<T> : IBaseRepositroy<T>
+    public abstract class BaseRepository<T> : IBaseRepository<T>
         where T : BaseEntity
     {
         /// <summary>
