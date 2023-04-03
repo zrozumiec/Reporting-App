@@ -1,5 +1,4 @@
 ﻿using ReportingApp.Application.DTO.Base;
-using ReportingApp.Domain.Entities;
 
 namespace ReportingApp.Application.DTO
 {
@@ -17,6 +16,5 @@ namespace ReportingApp.Application.DTO
         /// Gets or sets failure types description.
         /// </summary>
         public ICollection<FailureTypeDto> FailureTypes { get; set; } = new List<FailureTypeDto>();
-
     }
 }
