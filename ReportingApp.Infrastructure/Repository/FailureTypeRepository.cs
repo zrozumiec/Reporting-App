@@ -1,4 +1,5 @@
-﻿using ReportingApp.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using ReportingApp.Domain.Entities;
 using ReportingApp.Domain.Interfaces;
 using ReportingApp.Infrastructure.Repository.Base;
 
