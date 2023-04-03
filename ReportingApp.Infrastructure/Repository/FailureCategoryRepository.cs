@@ -26,6 +26,13 @@ namespace ReportingApp.Infrastructure.Repository
         public async Task<FailureCategory?> GetByNameAsync(string name)
         {
             return await this.DbSet.FirstOrDefaultAsync(x => x.Name == name);
+        /// <inheritdoc/>
+        public override async Task<FailureCategory?> GetByIdAsync(int id)
+        {
+            return await this.DbSet
+                .AsNoTracking()
+                .Include(x => x.FailureTypes)
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         /// <inheritdoc/>

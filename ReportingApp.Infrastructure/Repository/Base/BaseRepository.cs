@@ -56,13 +56,13 @@ namespace ReportingApp.Infrastructure.Repository.Base
         }
 
         /// <inheritdoc/>
-        public ICollection<T> GetAll()
+        public virtual async Task<ICollection<T>> GetAllAsync()
         {
-            return this.DbSet.ToList();
+            return await this.DbSet.AsNoTracking().ToListAsync();
         }
 
         /// <inheritdoc/>
-        public async Task<T?> GetByIdAsync(int id)
+        public virtual async Task<T?> GetByIdAsync(int id)
         {
             return await this.DbSet.FindAsync(id);
         }
