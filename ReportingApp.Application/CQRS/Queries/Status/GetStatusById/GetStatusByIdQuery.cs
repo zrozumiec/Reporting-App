@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using ReportingApp.Application.DTO;
 
-namespace ReportingApp.Application.CQRS.Queries.Category.GetCategoryById
+namespace ReportingApp.Application.CQRS.Queries.Status.GetStatusById
 {
     /// <summary>
     /// Query to get failure status by id.
@@ -14,7 +14,7 @@ namespace ReportingApp.Application.CQRS.Queries.Category.GetCategoryById
         /// <param name="id">Status id.</param>
         public GetStatusByIdQuery(int id)
         {
-            this.Id = id;
+            Id = id;
         }
 
         /// <summary>

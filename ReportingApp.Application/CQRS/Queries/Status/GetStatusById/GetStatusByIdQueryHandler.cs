@@ -3,7 +3,7 @@ using MediatR;
 using ReportingApp.Application.DTO;
 using ReportingApp.Domain.Interfaces;
 
-namespace ReportingApp.Application.CQRS.Queries.Category.GetCategoryById
+namespace ReportingApp.Application.CQRS.Queries.Status.GetStatusById
 {
     /// <summary>
     /// Query handler to get failure status by id.
@@ -27,9 +27,9 @@ namespace ReportingApp.Application.CQRS.Queries.Category.GetCategoryById
         /// <inheritdoc/>
         public async Task<FailureStatusDto> Handle(GetStatusByIdQuery request, CancellationToken cancellationToken)
         {
-            var status = await this.repository.GetByIdAsync(request.Id);
+            var status = await repository.GetByIdAsync(request.Id);
 
-            var statusDto = this.mapper.Map<FailureStatusDto>(status);
+            var statusDto = mapper.Map<FailureStatusDto>(status);
 
             return statusDto;
         }

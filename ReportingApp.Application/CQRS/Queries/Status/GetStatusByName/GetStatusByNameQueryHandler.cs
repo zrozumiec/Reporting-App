@@ -3,7 +3,7 @@ using MediatR;
 using ReportingApp.Application.DTO;
 using ReportingApp.Domain.Interfaces;
 
-namespace ReportingApp.Application.CQRS.Queries.Category.GetCategoryByName
+namespace ReportingApp.Application.CQRS.Queries.Status.GetStatusByName
 {
     /// <summary>
     /// Query handler to get failure category by name.
@@ -27,9 +27,9 @@ namespace ReportingApp.Application.CQRS.Queries.Category.GetCategoryByName
         /// <inheritdoc/>
         public async Task<FailureStatusDto> Handle(GetStatusByNameQuery request, CancellationToken cancellationToken)
         {
-            var status = await this.repository.GetByNameAsync(request.Name);
+            var status = await repository.GetByNameAsync(request.Name);
 
-            var statusDto = this.mapper.Map<FailureStatusDto>(status);
+            var statusDto = mapper.Map<FailureStatusDto>(status);
 
             return statusDto;
         }

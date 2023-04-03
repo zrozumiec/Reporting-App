@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using ReportingApp.Application.DTO;
 
-namespace ReportingApp.Application.CQRS.Queries.Category.GetCategoryByName
+namespace ReportingApp.Application.CQRS.Queries.Status.GetStatusByName
 {
     /// <summary>
     /// Query to get failure status by name.
@@ -14,7 +14,7 @@ namespace ReportingApp.Application.CQRS.Queries.Category.GetCategoryByName
         /// <param name="name">Status name.</param>
         public GetStatusByNameQuery(string name)
         {
-            this.Name = name;
+            Name = name;
         }
 
         /// <summary>

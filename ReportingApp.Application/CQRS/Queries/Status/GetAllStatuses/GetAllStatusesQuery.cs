@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using ReportingApp.Application.DTO;
 
-namespace ReportingApp.Application.CQRS.Queries.Category.GetAllCategories
+namespace ReportingApp.Application.CQRS.Queries.Status.GetAllStatuses
 {
     /// <summary>
     /// Query to get all failure statuses.

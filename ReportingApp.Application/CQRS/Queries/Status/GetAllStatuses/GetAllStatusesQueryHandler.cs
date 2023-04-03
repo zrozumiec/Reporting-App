@@ -3,7 +3,7 @@ using MediatR;
 using ReportingApp.Application.DTO;
 using ReportingApp.Domain.Interfaces;
 
-namespace ReportingApp.Application.CQRS.Queries.Category.GetAllCategories
+namespace ReportingApp.Application.CQRS.Queries.Status.GetAllStatuses
 {
     /// <summary>
     /// Query handler to get all failure statuses.
@@ -27,9 +27,9 @@ namespace ReportingApp.Application.CQRS.Queries.Category.GetAllCategories
         /// <inheritdoc/>
         public async Task<ICollection<FailureStatusDto>> Handle(GetAllStatusesQuery request, CancellationToken cancellationToken)
         {
-            var statuses = await this.repository.GetAllAsync();
+            var statuses = await repository.GetAllAsync();
 
-            var statusesDto = this.mapper.Map<ICollection<FailureStatusDto>>(statuses);
+            var statusesDto = mapper.Map<ICollection<FailureStatusDto>>(statuses);
 
             return statusesDto;
         }
