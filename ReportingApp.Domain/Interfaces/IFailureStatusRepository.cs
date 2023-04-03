@@ -6,7 +6,7 @@ namespace ReportingApp.Domain.Interfaces
     /// <summary>
     /// Interface for failure status repository.
     /// </summary>
-    public interface IFailureStatusRepository : IBaseRepositroy<FailureStatus>
+    public interface IFailureStatusRepository : IBaseRepository<FailureStatus>
     {
         /// <summary>
         /// Async method returns status with given name.

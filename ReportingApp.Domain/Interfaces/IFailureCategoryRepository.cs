@@ -6,7 +6,7 @@ namespace ReportingApp.Domain.Interfaces
     /// <summary>
     /// Interface for failure category repository.
     /// </summary>
-    public interface IFailureCategoryRepository : IBaseRepositroy<FailureCategory>
+    public interface IFailureCategoryRepository : IBaseRepository<FailureCategory>
     {
         /// <summary>
         /// Async method returns category with given name.

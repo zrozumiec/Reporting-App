@@ -6,7 +6,7 @@ namespace ReportingApp.Domain.Interfaces
     /// <summary>
     /// Interface for failure location repository.
     /// </summary>
-    public interface IFailureLocationRepository : IBaseRepositroy<FailureLocation>
+    public interface IFailureLocationRepository : IBaseRepository<FailureLocation>
     {
     }
 }
