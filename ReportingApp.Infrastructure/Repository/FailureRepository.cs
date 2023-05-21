@@ -77,5 +77,16 @@ namespace ReportingApp.Infrastructure.Repository
                 .ToListAsync();
         }
 
+        /// <inheritdoc/>
+        public override async Task<Failure?> GetByIdAsync(int id)
+        {
+            return await this.DbSet
+                .AsNoTracking()
+                .Include(x => x.Status)
+                .Include(x => x.Location)
+                .Include(x => x.FailureSolutions)
+                .Include(x => x.FailureTypes).ThenInclude(x => x.Category)
+                .FirstOrDefaultAsync(x => x.Id == id);
+        }
     }
 }
