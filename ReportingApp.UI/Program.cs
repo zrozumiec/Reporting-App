@@ -1,6 +1,8 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using ReportingApp.UI.Data;
+using ReportingApp.Application.Extensions;
+using ReportingApp.Domain.Entities;
+using ReportingApp.Infrastructure;
+using ReportingApp.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,9 +12,14 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
+builder.Services.RegisterMappers();
+builder.Services.RegisterMediatR();
+builder.Services.RegisterRepositories();
+builder.Services.RegisterFluentValidator();
 
 var app = builder.Build();
 
@@ -24,7 +31,6 @@ if (app.Environment.IsDevelopment())
 else
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -40,5 +46,14 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
+
+using var scope = app.Services.CreateScope();
+var appDbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+var pendingMigrations = await appDbContext.Database.GetPendingMigrationsAsync();
+
+if (pendingMigrations.Any())
+{
+    appDbContext.Database.Migrate();
+}
 
 app.Run();
