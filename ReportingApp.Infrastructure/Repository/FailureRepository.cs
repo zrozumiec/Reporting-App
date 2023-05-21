@@ -33,8 +33,8 @@ namespace ReportingApp.Infrastructure.Repository
             }
 
             failure.Name = newItem.Name;
-            failure.StatusId = newItem.StatusId;
-            failure.LocationId = newItem.LocationId;
+            failure.Location = newItem.Location;
+            failure.FailureTypes = newItem.FailureTypes;
 
             await this.SaveAsync();
 
