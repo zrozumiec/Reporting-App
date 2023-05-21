@@ -58,5 +58,15 @@ namespace ReportingApp.Infrastructure.Repository
             return failure.Id;
         }
 
+        /// <inheritdoc/>
+        public override async Task<ICollection<Failure>> GetAllAsync()
+        {
+            return await this.DbSet
+                .Include(x => x.Status)
+                .Include(x => x.FailureSolutions)
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
     }
 }
