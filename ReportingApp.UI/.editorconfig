@@ -8,9 +8,17 @@ dotnet_diagnostic.SA1633.severity = none
 dotnet_diagnostic.CA1303.severity = none
 dotnet_diagnostic.SA1200.severity = none
 dotnet_diagnostic.SA1413.severity = none
+dotnet_diagnostic.SA1600.severity = none
 
 # SA0001: XML comment analysis disabled
 dotnet_diagnostic.SA0001.severity = none
 
+# IDE0052: Remove unread private members
+dotnet_diagnostic.IDE0052.severity = none
+
+# S4487: Unread "private" fields should be removed
+dotnet_diagnostic.S4487.severity = none
+
 # VSSpell001: Spell Check
 dotnet_diagnostic.VSSpell001.severity = silent
+

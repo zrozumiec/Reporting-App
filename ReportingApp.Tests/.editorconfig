@@ -12,3 +12,6 @@ dotnet_diagnostic.SA1600.severity = none
 
 # SA0001: XML comment analysis disabled
 dotnet_diagnostic.SA0001.severity = none
+
+# VSSpell001: Spell Check
+dotnet_diagnostic.VSSpell001.severity = silent
