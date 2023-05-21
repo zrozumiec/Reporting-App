@@ -1,0 +1,32 @@
+﻿@using ReportingApp.Application.DTO;
+@model FailureDto
+
+<table class="table">
+    <thead>
+        <tr>
+            <th align="left">
+                Problem description
+            </th>
+            <th align="left">
+                Problem category
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var failureType in Model.FailureTypes)
+        {
+            <tr>
+                <td align="left">
+                    @Html.DisplayFor(modelItem => failureType.Description)
+                </td>
+                <td align="left">
+                    @Html.DisplayFor(modelItem => failureType.Category.Name)
+                </td>
+                <td>
+                    <a class="btn btn-primary btn-sm" onclick="removeType(@Model.Id, @failureType.Id)">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

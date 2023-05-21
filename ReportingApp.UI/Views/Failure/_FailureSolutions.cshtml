@@ -1,0 +1,87 @@
+﻿@using ReportingApp.Application.DTO;
+@model (ICollection<FailureSolutionDto>, bool)
+
+<hr class="my-auto flex-grow-1" />
+<div class="align-self-center justify-content-center">
+    <h3>Failure solutions</h3>
+</div>
+<hr class="my-auto flex-grow-1" />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                ExpectedCostMin
+            </th>
+            <th>
+                ExpectedCostMax
+            </th>
+            <th>
+                UserId
+            </th>
+            <th>
+                Solution accepted
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Item1)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExpectedCostMin)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExpectedCostMax)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Accepted)
+                </td>
+                @if (!item.Accepted && !Model.Item2)
+                {
+                    <td>
+                        <a data-bs-toggle="modal" data-bs-target="#acceptSolutionDialog" data-id="@item.Id" title="Accept" class="open-AddSolutionDialog btn btn-primary">Accept</a>
+                    </td>
+
+                    <td class="modal fade" id="acceptSolutionDialog" tabindex="-1" aria-labelledby="acceptSolutionModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="acceptSolutionModalLabel">Solution acceptation!</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p class="text-danger">Do you want to accept this solution? This operation can not be undo!</p>
+                                    <input type="hidden" name="solutionId" id="solutionId" value="" />
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary align-self-start mr-auto" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-danger align-self-end" onclick="acceptSolution(@item.FailureId)">Yes, accept solution</button>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

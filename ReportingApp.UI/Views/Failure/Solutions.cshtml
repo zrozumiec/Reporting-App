@@ -1,0 +1,15 @@
+﻿@using ReportingApp.UI.Models.FailureSolutions;
+@model FailureSolutionsVM;
+
+@{
+    ViewData["Title"] = "Solutions";
+}
+
+<h1>Solutions</h1>
+
+<partial name="_FailureSolutions" model="(Model.Solutions, Model.AnyAccepted)" />
+
+@section Scripts
+    {
+    <script src="~/js/modal-alert/modal-alert.js"></script>
+}

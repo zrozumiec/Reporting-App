@@ -1,0 +1,141 @@
+﻿@using ReportingApp.Application.DTO;
+@model FailureDto
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>FailureDto</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Status.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Status.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UserId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Location.Street)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Location.Street)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Location.City)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Location.City)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Location.Country)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Location.Country)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Location.Factory)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Location.Factory)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Location.Machine)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Location.Machine)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Location.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Location.Description)
+        </dd>
+    </dl>
+</div>
+<hr class="my-auto flex-grow-1" />
+<div class="align-self-center justify-content-center">
+    <h3>Failure types</h3>
+</div>
+<hr class="my-auto flex-grow-1" />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                Category Name
+            </th>
+            <th>
+                Category Description
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.FailureTypes)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (Model.FailureSolutions.Any())
+{
+    <partial name="_FailureSolutions" model="(Model.FailureSolutions, Model.AnySolutionAccepted)" />
+}
+
+<div>
+    @if (Model.AnySolutionAccepted)
+    {
+        <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-bs-animation="true" title="You are not able to edit failure with accepted solution!">
+            <a class="btn btn-primary btn-sm disabled" href="" )">Edit</a>
+        </span>
+    }
+    else
+    {
+        <a class="btn btn-primary btn-sm" href="@Url.Action("Edit", "Failure", new { failureId = Model.Id })">Edit</a>
+    }
+    <br />
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts
+{
+    <script src="~/js/modal-alert/modal-alert.js"></script>
+}

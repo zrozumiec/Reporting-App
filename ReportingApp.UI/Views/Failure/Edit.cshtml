@@ -1,0 +1,141 @@
+﻿@using ReportingApp.UI.Models.FailureVM;
+@model EditFailureVM
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>FailureDto</h4>
+<hr />
+<div class="row">
+
+    <div class="col-md-8">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="EditFailureCommand.Failure.Id" type="hidden" />
+            <input asp-for="EditFailureCommand.Failure.StatusId" type="hidden" />
+            <div class="form-group">
+                <label asp-for="EditFailureCommand.Failure.Name" class="control-label"></label>
+                <input asp-for="EditFailureCommand.Failure.Name" class="form-control" />
+                <span asp-validation-for="EditFailureCommand.Failure.Name" class="text-danger"></span>
+            </div>
+            <h4>Location</h4>
+            <div class="form-group">
+                <label asp-for="EditFailureCommand.Failure.Location.Street" class="control-label"></label>
+                <input asp-for="EditFailureCommand.Failure.Location.Street" class="form-control" />
+                <span asp-validation-for="EditFailureCommand.Failure.Location.Street" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EditFailureCommand.Failure.Location.City" class="control-label"></label>
+                <input asp-for="EditFailureCommand.Failure.Location.City" class="form-control" />
+                <span asp-validation-for="EditFailureCommand.Failure.Location.City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EditFailureCommand.Failure.Location.Country" class="control-label"></label>
+                <input asp-for="EditFailureCommand.Failure.Location.Country" class="form-control" />
+                <span asp-validation-for="EditFailureCommand.Failure.Location.Country" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EditFailureCommand.Failure.Location.Factory" class="control-label"></label>
+                <input asp-for="EditFailureCommand.Failure.Location.Factory" class="form-control" />
+                <span asp-validation-for="EditFailureCommand.Failure.Location.Factory" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EditFailureCommand.Failure.Location.Machine" class="control-label"></label>
+                <input asp-for="EditFailureCommand.Failure.Location.Machine" class="form-control" />
+                <span asp-validation-for="EditFailureCommand.Failure.Location.Machine" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EditFailureCommand.Failure.Location.Description" class="control-label"></label>
+                <input asp-for="EditFailureCommand.Failure.Location.Description" class="form-control" />
+                <span asp-validation-for="EditFailureCommand.Failure.Location.Description" class="text-danger"></span>
+            </div>
+
+            <h4>Problems</h4>
+
+            <div class="col-sm-12" id="partial">
+                <partial name="_RemoveFailureType" model="Model.EditFailureCommand.Failure" />
+            </div>
+            <p>
+                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    Add new problem
+                </button>
+            </p>
+            <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                    <section class="forms">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                            <div class="col-sm-12">
+                                                <partial name="_AddFailureType" model="Model.FailureCategoriesSelectedList" />
+                                            </div>
+                                            <div id="addAddMoreDiv"></div>
+                                            <a id="add_row" class="btn btn-primary float-right"> Add Row</a>
+                                            <br />
+                                            <br />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $('#add_row').on('click', function () {
+            $.ajax({
+                url: '@Url.Action("BlankSentence", "Failure")',
+                type: 'POST',
+                data: {
+                },
+                success: function (result) {
+                    $('#addAddMoreDiv').append(result);
+                },
+                error: function () {
+                }
+            });
+        });
+    </script>
+
+    <script>
+        function removeType(p1, p2) {
+            let failureId = Number(p1);
+            let failureTypeId = Number(p2)
+
+            var result = confirm("Do you want to delete?");
+            if (result) {
+                $.ajax({
+                    url: '@Url.Action("RemoveFailureTypeFromFailure", "Failure")',
+                    type: 'POST',
+                    data: { 'failureId': failureId, 'failureTypeId': failureTypeId },
+                    async: true,
+                    success: function (result) {
+                        $('#partial').html(result);
+                    }
+                });
+            }
+        }
+    </script>
+}
