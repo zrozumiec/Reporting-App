@@ -40,5 +40,23 @@ namespace ReportingApp.Infrastructure.Repository
 
             return failure.Id;
         }
+
+        /// <inheritdoc/>
+        public async Task<int> EditStatusAsync(int failureId, int statusId)
+        {
+            var failure = await this.DbSet.FindAsync(failureId);
+
+            if (failure is null)
+            {
+                throw new ArgumentException("Failure with given id does not exist in database.");
+            }
+
+            failure.StatusId = statusId;
+
+            await this.SaveAsync();
+
+            return failure.Id;
+        }
+
     }
 }
