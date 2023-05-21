@@ -64,7 +64,7 @@ namespace ReportingApp.Infrastructure.Repository.Base
         /// <inheritdoc/>
         public virtual async Task<T?> GetByIdAsync(int id)
         {
-            return await this.DbSet.FindAsync(id);
+            return await this.DbSet.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
         }
 
         /// <inheritdoc/>
