@@ -36,5 +36,11 @@ namespace ReportingApp.Application.DTO
         /// Gets or sets failure solutions.
         /// </summary>
         public ICollection<FailureSolutionDto> FailureSolutions { get; set; } = new List<FailureSolutionDto>();
+
+        /// <summary>
+        /// Gets or sets a value indicating whether any solution is accepted.
+        /// </summary>
+        [DisplayName("Solution accepted")]
+        public bool AnySolutionAccepted { get; set; }
     }
 }
