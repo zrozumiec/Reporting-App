@@ -55,5 +55,11 @@ namespace ReportingApp.Infrastructure
 
             builder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
         }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+            optionsBuilder.EnableSensitiveDataLogging();
+        }
     }
 }
