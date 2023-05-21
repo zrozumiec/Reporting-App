@@ -68,5 +68,14 @@ namespace ReportingApp.Infrastructure.Repository
                 .ToListAsync();
         }
 
+        /// <inheritdoc/>
+        public async Task<ICollection<Failure>> GetAllUserFailuresAsync(string userId)
+        {
+            return await this.DbSet
+                .AsNoTracking()
+                .Where(x => x.UserId == userId)
+                .ToListAsync();
+        }
+
     }
 }
