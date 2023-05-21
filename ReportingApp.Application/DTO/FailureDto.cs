@@ -1,4 +1,5 @@
-﻿using ReportingApp.Application.DTO.Base;
+﻿using System.ComponentModel;
+using ReportingApp.Application.DTO.Base;
 
 namespace ReportingApp.Application.DTO
 {
@@ -15,17 +16,27 @@ namespace ReportingApp.Application.DTO
         /// <summary>
         /// Gets or sets failure location.
         /// </summary>
-        public FailureLocationDto Location { get; set; } = new ();
+        public FailureLocationDto Location { get; set; } = new FailureLocationDto();
+
+        /// <summary>
+        /// Gets or sets failure status id.
+        /// </summary>
+        public int StatusId { get; set; }
 
         /// <summary>
         /// Gets or sets failure status.
         /// </summary>
-        public FailureStatusDto StatusName { get; set; } = new ();
+        public FailureStatusDto Status { get; set; } = new FailureStatusDto();
+
+        /// <summary>
+        /// Gets or sets failure user id.
+        /// </summary>
+        public string UserId { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets failure user.
         /// </summary>
-        public ApplicationUserDto User { get; set; } = new ();
+        public ApplicationUserDto User { get; set; } = new ApplicationUserDto();
 
         /// <summary>
         /// Gets or sets failure types.
