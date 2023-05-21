@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33424.131
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportingApp.UI", "ReportingApp\ReportingApp.UI.csproj", "{23A963CE-06E0-47FD-983C-1D121BF68ADE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReportingApp.Domain", "ReportingApp.Domain\ReportingApp.Domain.csproj", "{4F2CCAB4-CA7E-4F16-BCFD-BE00CF610CA9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportingApp.Domain", "ReportingApp.Domain\ReportingApp.Domain.csproj", "{4F2CCAB4-CA7E-4F16-BCFD-BE00CF610CA9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReportingApp.Application", "ReportingApp.Application\ReportingApp.Application.csproj", "{343DAC9D-A40B-4298-8DE2-FFF88EB7EBF7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportingApp.Application", "ReportingApp.Application\ReportingApp.Application.csproj", "{343DAC9D-A40B-4298-8DE2-FFF88EB7EBF7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReportingApp.Infrastructure", "ReportingApp.Infrastructure\ReportingApp.Infrastructure.csproj", "{514C1DCC-9E16-47DA-B59B-AAFBD8CFDABC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportingApp.Infrastructure", "ReportingApp.Infrastructure\ReportingApp.Infrastructure.csproj", "{514C1DCC-9E16-47DA-B59B-AAFBD8CFDABC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReportingApp.Tests", "ReportingApp.Tests\ReportingApp.Tests.csproj", "{A9910BAA-DD13-44EC-8B1E-C0EB8C8F83B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReportingApp.Tests", "ReportingApp.Tests\ReportingApp.Tests.csproj", "{A9910BAA-DD13-44EC-8B1E-C0EB8C8F83B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReportingApp.UI", "ReportingApp.UI\ReportingApp.UI.csproj", "{8E76065A-4179-4F71-A101-820EE0C916C0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,10 +19,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{23A963CE-06E0-47FD-983C-1D121BF68ADE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{23A963CE-06E0-47FD-983C-1D121BF68ADE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{23A963CE-06E0-47FD-983C-1D121BF68ADE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{23A963CE-06E0-47FD-983C-1D121BF68ADE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4F2CCAB4-CA7E-4F16-BCFD-BE00CF610CA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4F2CCAB4-CA7E-4F16-BCFD-BE00CF610CA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F2CCAB4-CA7E-4F16-BCFD-BE00CF610CA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,6 +35,10 @@ Global
 		{A9910BAA-DD13-44EC-8B1E-C0EB8C8F83B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9910BAA-DD13-44EC-8B1E-C0EB8C8F83B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9910BAA-DD13-44EC-8B1E-C0EB8C8F83B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E76065A-4179-4F71-A101-820EE0C916C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E76065A-4179-4F71-A101-820EE0C916C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E76065A-4179-4F71-A101-820EE0C916C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E76065A-4179-4F71-A101-820EE0C916C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
