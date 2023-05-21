@@ -13,9 +13,14 @@ namespace ReportingApp.Application.DTO
         public string Description { get; set; } = string.Empty;
 
         /// <summary>
+        /// Gets or sets failure category id.
+        /// </summary>
+        public int CategoryId { get; set; }
+
+        /// <summary>
         /// Gets or sets failure category.
         /// </summary>
-        public FailureCategoryDto Category { get; set; } = new ();
+        public FailureCategoryDto Category { get; set; } = new FailureCategoryDto();
 
         /// <summary>
         /// Gets or sets failure of specified type.
