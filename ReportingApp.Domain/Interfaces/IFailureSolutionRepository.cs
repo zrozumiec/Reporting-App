@@ -15,5 +15,12 @@ namespace ReportingApp.Domain.Interfaces
         /// <returns>Accepted solution id.</returns>
         /// <exception cref="ArgumentException">Throws when solution with given id does not exist in database.</exception>
         public Task<int> AcceptSolutionAsync(int id);
+
+        /// <summary>
+        /// Async method to get all failure solutions.
+        /// </summary>
+        /// <param name="failureId">Failure id.</param>
+        /// <returns>Collection of failure solutions.</returns>
+        public Task<ICollection<FailureSolution>> GetAllFailureSolutionsAsync(int failureId);
     }
 }
