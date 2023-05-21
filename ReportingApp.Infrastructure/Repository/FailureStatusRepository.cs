@@ -25,7 +25,21 @@ namespace ReportingApp.Infrastructure.Repository
         /// <inheritdoc/>
         public async Task<FailureStatus?> GetByNameAsync(string name)
         {
-            var status = await this.DbSet.FirstOrDefaultAsync(x => x.Name == name);
+            var status = await this.DbSet
+                .AsNoTracking()
+                .Include(x => x.Failures)
+                .FirstOrDefaultAsync(x => x.Name == name);
+
+            return status;
+        }
+
+        /// <inheritdoc/>
+        public async Task<FailureStatus?> GetByIdAsync(int id)
+        {
+            var status = await this.DbSet
+                .AsNoTracking()
+                .Include(x => x.Failures)
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             return status;
         }
