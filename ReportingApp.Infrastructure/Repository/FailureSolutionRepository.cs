@@ -42,5 +42,30 @@ namespace ReportingApp.Infrastructure.Repository
 
             return solution.Id;
         }
+
+        /// <inheritdoc/>
+        public async Task<int> AcceptSolutionAsync(int id)
+        {
+            var solution = await this.DbSet.FindAsync(id);
+
+            if (solution is null)
+            {
+                throw new ArgumentException("Solution with given id does not exist in database.");
+            }
+
+            solution.Accepted = true;
+
+            await this.SaveAsync();
+
+            return solution.Id;
+        }
+
+        /// <inheritdoc/>
+        public async Task<ICollection<FailureSolution>> GetAllFailureSolutionsAsync(int failureId)
+        {
+            var solutions = await this.DbSet.Where(x => x.FailureId == failureId).ToListAsync();
+
+            return solutions;
+        }
     }
 }
