@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using ReportingApp.Application.DTO;
-using ReportingApp.Domain.Entities;
 
 namespace ReportingApp.Application.MapperProfiles
 {
@@ -14,7 +13,7 @@ namespace ReportingApp.Application.MapperProfiles
         /// </summary>
         public ApplicationUserProfile()
         {
-            this.CreateMap<ApplicationUser, ApplicationUserDto>()
+            this.CreateMap<Domain.Entities.ApplicationUser, ApplicationUserDto>()
                 .ReverseMap();
         }
     }
