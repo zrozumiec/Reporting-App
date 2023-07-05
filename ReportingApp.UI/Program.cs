@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ReportingApp.Application.Extensions;
 using ReportingApp.Domain.Entities;
@@ -13,6 +14,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
@@ -20,6 +22,7 @@ builder.Services.RegisterMappers();
 builder.Services.RegisterMediatR();
 builder.Services.RegisterRepositories();
 builder.Services.RegisterFluentValidator();
+builder.Services.RegisterUserContext();
 
 var app = builder.Build();
 
