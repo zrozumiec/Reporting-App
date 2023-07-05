@@ -1,37 +1,42 @@
-﻿@model IEnumerable<ReportingApp.Application.DTO.FailureDto>
+﻿@model (ICollection<ReportingApp.Application.DTO.FailureDto>, bool)
 
 @{
     ViewData["Title"] = "Index";
+    var accesToEdit = Model.Item2;
 }
 
 <h1>Index</h1>
 
-<p>
-    <a class="btn btn-primary btn-sm" asp-action="Create">Create New</a>
-</p>
+@if (accesToEdit)
+{
+    <p>
+        <a class="btn btn-primary btn-sm" asp-action="Create">Create New</a>
+    </p>
+}
+
 <table class="table">
     <thead>
         <tr>
             <th align="center">
-                @Html.DisplayNameFor(model => model.Id)
+                Id
             </th>
             <th align="center">
-                @Html.DisplayNameFor(model => model.Name)
+                Name
             </th>
             <th align="center">
-                @Html.DisplayNameFor(model => model.Status.Name)
+                Status Name
             </th>
             <th align="center">
-                @Html.DisplayNameFor(model => model.FailureSolutions.Count)
+                Number of solutions
             </th>
             <th align="center">
-                @Html.DisplayNameFor(model => model.AnySolutionAccepted)
+                Any solution accepted
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.Item1)
         {
             <tr>
                 <td align="center">
@@ -50,28 +55,35 @@
                     @Html.DisplayFor(modelItem => item.AnySolutionAccepted)
                 </td>
                 <td>
-                    @if (item.AnySolutionAccepted)
+                    @if (accesToEdit)
                     {
-                        <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-bs-animation="true" title="You are not able to edit failure with accepted solution!">
-                            <a class="btn btn-primary btn-sm disabled" href="")">Edit</a>
-                        </span>
+                        @if (item.AnySolutionAccepted)
+                        {
+                            <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-bs-animation="true" title="You are not able to edit failure with accepted solution!">
+                                <a class="btn btn-primary btn-sm disabled" href="" )">Edit</a>
+                            </span>
+                        }
+                        else
+                        {
+                            <a class="btn btn-primary btn-sm" href="@Url.Action("Edit", "Failure", new { failureId = item.Id })">Edit</a>
+                        }
                     }
-                    else
-                    {
-                        <a class="btn btn-primary btn-sm" href="@Url.Action("Edit", "Failure", new { failureId = item.Id })">Edit</a>
-                    }
+
                     <a class="btn btn-primary btn-sm" href="@Url.Action("Details", "Failure", new { failureId = item.Id })">Details</a>
                     <a class="btn btn-primary btn-sm" href="@Url.Action("Solutions", "Failure", new { failureId = item.Id })">Solutions</a>
 
-                    @if (item.AnySolutionAccepted)
+                    @if (accesToEdit)
                     {
-                        <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-bs-animation="true" title="You are not able to delete failure with accepted solution!">
-                            <a class="btn btn-primary btn-sm disabled" href="" )">Delete</a>
-                        </span>
-                    }
-                    else
-                    {
-                        <a class="btn btn-primary btn-sm" href="@Url.Action("Delete", "Failure", new { failureId = item.Id })">Delete</a>
+                        @if (item.AnySolutionAccepted)
+                        {
+                            <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-bs-animation="true" title="You are not able to delete failure with accepted solution!">
+                                <a class="btn btn-primary btn-sm disabled" href="" )">Delete</a>
+                            </span>
+                        }
+                        else
+                        {
+                            <a class="btn btn-primary btn-sm" href="@Url.Action("Delete", "Failure", new { failureId = item.Id })">Delete</a>
+                        }
                     }
                 </td>
             </tr>

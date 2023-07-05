@@ -1,6 +1,11 @@
 ﻿@using ReportingApp.Application.DTO;
 @model (ICollection<FailureSolutionDto>, bool)
 
+@{
+    var failureSolutionCollection = Model.Item1;
+    var accesToAcceptSolution = Model.Item2;
+}
+
 <hr class="my-auto flex-grow-1" />
 <div class="align-self-center justify-content-center">
     <h3>Failure solutions</h3>
@@ -10,28 +15,25 @@
     <thead>
         <tr>
             <th>
-                Id
+                @Html.DisplayNameForInnerType((FailureSolutionDto solution) => solution.Id)
             </th>
             <th>
-                Description
+                @Html.DisplayNameForInnerType((FailureSolutionDto solution) => solution.Description)
             </th>
             <th>
-                ExpectedCostMin
+                @Html.DisplayNameForInnerType((FailureSolutionDto solution) => solution.ExpectedCostMin)
             </th>
             <th>
-                ExpectedCostMax
+                @Html.DisplayNameForInnerType((FailureSolutionDto solution) => solution.User.UserName)
             </th>
             <th>
-                UserId
-            </th>
-            <th>
-                Solution accepted
+                @Html.DisplayNameForInnerType((FailureSolutionDto solution) => solution.Accepted)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Item1)
+        @foreach (var item in failureSolutionCollection)
         {
             <tr>
                 <td>
@@ -41,10 +43,7 @@
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ExpectedCostMin)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ExpectedCostMax)
+                    @Html.DisplayFor(modelItem => item.ExpectedCostMin) - @Html.DisplayFor(modelItem => item.ExpectedCostMax)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.UserId)
@@ -52,7 +51,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Accepted)
                 </td>
-                @if (!item.Accepted && !Model.Item2)
+                @if (!item.Accepted && !accesToAcceptSolution)
                 {
                     <td>
                         <a data-bs-toggle="modal" data-bs-target="#acceptSolutionDialog" data-id="@item.Id" title="Accept" class="open-AddSolutionDialog btn btn-primary">Accept</a>
