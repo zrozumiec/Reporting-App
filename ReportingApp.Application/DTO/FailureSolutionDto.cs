@@ -1,4 +1,5 @@
-﻿using ReportingApp.Application.DTO.Base;
+﻿using System.ComponentModel;
+using ReportingApp.Application.DTO.Base;
 
 namespace ReportingApp.Application.DTO
 {
@@ -10,21 +11,25 @@ namespace ReportingApp.Application.DTO
         /// <summary>
         /// Gets or sets solution description.
         /// </summary>
+        [DisplayName("Solution description")]
         public string Description { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets solution expected min cost.
         /// </summary>
+        [DisplayName("Expected cost")]
         public decimal ExpectedCostMin { get; set; }
 
         /// <summary>
         /// Gets or sets solution expected max cost.
         /// </summary>
+        [DisplayName("Expected cost")]
         public decimal ExpectedCostMax { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether solution is accepted.
         /// </summary>
+        [DisplayName("Solution accepted")]
         public bool Accepted { get; set; }
 
         /// <summary>

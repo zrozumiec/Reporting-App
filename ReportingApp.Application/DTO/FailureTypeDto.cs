@@ -1,4 +1,5 @@
-﻿using ReportingApp.Application.DTO.Base;
+﻿using System.ComponentModel;
+using ReportingApp.Application.DTO.Base;
 
 namespace ReportingApp.Application.DTO
 {
@@ -10,6 +11,7 @@ namespace ReportingApp.Application.DTO
         /// <summary>
         /// Gets or sets failure type description.
         /// </summary>
+        [DisplayName("Failure type description")]
         public string Description { get; set; } = string.Empty;
 
         /// <summary>

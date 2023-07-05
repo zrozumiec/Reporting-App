@@ -11,6 +11,7 @@ namespace ReportingApp.Application.DTO
         /// <summary>
         /// Gets or sets failure name.
         /// </summary>
+        [DisplayName("Failure name")]
         public string Name { get; set; } = string.Empty;
 
         /// <summary>

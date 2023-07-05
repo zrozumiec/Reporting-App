@@ -1,4 +1,5 @@
-﻿using ReportingApp.Application.DTO.Base;
+﻿using System.ComponentModel;
+using ReportingApp.Application.DTO.Base;
 
 namespace ReportingApp.Application.DTO
 {
@@ -35,6 +36,7 @@ namespace ReportingApp.Application.DTO
         /// <summary>
         /// Gets or sets location description.
         /// </summary>
+        [DisplayName("Location description")]
         public string? Description { get; set; }
 
         /// <summary>
