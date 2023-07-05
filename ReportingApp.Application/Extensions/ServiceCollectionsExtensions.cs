@@ -2,6 +2,7 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
+using ReportingApp.Application.ApplicationUser;
 using ReportingApp.Application.CQRS.Commands.Category.CreateCategory;
 using ReportingApp.Application.MapperProfiles;
 
@@ -48,6 +49,15 @@ namespace ReportingApp.Application.Extensions
             services.AddValidatorsFromAssemblyContaining<CreateCategoryCommandValidator>()
                 .AddFluentValidationAutoValidation()
                 .AddFluentValidationClientsideAdapters();
+        }
+
+        /// <summary>
+        /// Inject user context to DI service.
+        /// </summary>
+        /// <param name="services">Extension IServiceCollection.</param>
+        public static void RegisterUserContext(this IServiceCollection services)
+        {
+            services.AddScoped<IUserContext, UserContext>();
         }
     }
 }
