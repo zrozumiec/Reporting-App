@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using ReportingApp.Application.ApplicationUser;
 using ReportingApp.Application.CQRS.Commands.Failure.DeleteFailure;
 using ReportingApp.Application.CQRS.Commands.Failure.EditFailure;
 using ReportingApp.Application.CQRS.Commands.Failure.EditFailureStatus;
@@ -10,6 +11,7 @@ using ReportingApp.Application.CQRS.Commands.Solution.AcceptSolution;
 using ReportingApp.Application.CQRS.Queries.Category.GetAllCategories;
 using ReportingApp.Application.CQRS.Queries.Category.GetCategoryById;
 using ReportingApp.Application.CQRS.Queries.Failure.GetAllFailures;
+using ReportingApp.Application.CQRS.Queries.Failure.GetAllUserFailures;
 using ReportingApp.Application.CQRS.Queries.Failure.GetFailureById;
 using ReportingApp.Application.CQRS.Queries.Solution.GetAllFailureSolutions;
 using ReportingApp.Application.CQRS.Queries.Status.GetStatusByName;
@@ -19,43 +21,77 @@ using ReportingApp.UI.Models.FailureVM;
 
 namespace ReportingApp.UI.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class FailureController : Controller
     {
-        private readonly IMediator mediator;
+        private const string UserRoleReceiver = "Receiver";
+        private const string UserRoleApplicant = "Applicant";
+        private const string UserRoleAdmin = "Admin";
 
-        public FailureController(IMediator mediator)
+        private readonly IMediator mediator;
+        private readonly IUserContext userContext;
+
+        public FailureController(IMediator mediator, IUserContext userContext)
         {
             this.mediator = mediator;
+            this.userContext = userContext;
         }
 
         public async Task<IActionResult> Index()
         {
-            var failures = await this.mediator.Send(new GetAllFailuresQuery());
-            // TODO:
-            //var failures = await this.mediator.Send(new GetAllUserFailures());
-            return this.View(failures);
+            var user = this.userContext.GetCurrentUser();
+
+            if (user.ContainRole(UserRoleReceiver))
+            {
+                var failures = await this.mediator.Send(new GetAllFailuresQuery());
+                var accesToEdit = false;
+
+                return this.View((failures, accesToEdit));
+            }
+            else if (user.ContainRole(UserRoleApplicant) || user.ContainRole(UserRoleAdmin))
+            {
+                var failures = await this.mediator.Send(new GetAllUserFailuresQuery(user.Id));
+                var accesToEdit = true;
+
+                return this.View((failures, accesToEdit));
+            }
+
+            return this.RedirectToAction("Error", "Home");
         }
 
         public async Task<IActionResult> Details(int failureId)
         {
+            var user = this.userContext.GetCurrentUser();
             var failure = await this.mediator.Send(new GetFailureByIdQuery(failureId));
+            var accesToEdit = user.ContainRole(UserRoleApplicant);
 
-            return this.View(failure);
+            return this.View((failure, accesToEdit));
         }
 
         public async Task<IActionResult> Solutions(int failureId)
         {
+            var user = this.userContext.GetCurrentUser();
             var failureSolution = new FailureSolutionsVM();
             var solutions = await this.mediator.Send(new GetAllFailureSolutionsQuery(failureId));
 
             failureSolution.Solutions = solutions;
             failureSolution.AnyAccepted = solutions.Any(x => x.Accepted);
 
-            return this.View(failureSolution);
+            var accesToAdd = (user.ContainRole(UserRoleAdmin) || user.ContainRole(UserRoleReceiver)) && !failureSolution.AnyAccepted;
+
+            return this.View((failureSolution, accesToAdd));
         }
 
         [HttpGet]
+        [Authorize(Roles = UserRoleReceiver)]
+        public async Task<IActionResult> CreateSolution()
+        {
+             return this.View();
+        }
+
+        [HttpGet]
+        [Authorize(Roles = UserRoleApplicant)]
+
         public async Task<IActionResult> Create()
         {
             var createFailure = new AddFailureVM();
@@ -70,6 +106,7 @@ namespace ReportingApp.UI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = UserRoleApplicant)]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CreateNewFailureVM newFailure)
         {
@@ -82,7 +119,6 @@ namespace ReportingApp.UI.Controllers
             var status = await this.mediator.Send(new GetStatusByNameQuery("New"));
 
             newFailure.CreateFailureCommand.StatusId = status.Id;
-            newFailure.CreateFailureCommand.Status = null!;
             newFailure.CreateFailureCommand.FailureTypes = await this.AddNewFailuryTypesToFailure(newFailure.AddMoreFailureTypes, newFailure.CreateFailureCommand.FailureTypes);
             newFailure.CreateFailureCommand.UserId = user.Id;
 
@@ -93,6 +129,7 @@ namespace ReportingApp.UI.Controllers
 
         [Route("{controller}/{action}/{failureId:int}")]
         [HttpGet]
+        [Authorize(Roles = UserRoleApplicant)]
         public async Task<IActionResult> Edit(int failureId)
         {
             var failure = await this.mediator.Send(new GetFailureByIdQuery(failureId));
@@ -111,6 +148,7 @@ namespace ReportingApp.UI.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = UserRoleApplicant)]
         public async Task<IActionResult> Edit(EditFailureVM newFailure)
         {
 
@@ -129,6 +167,7 @@ namespace ReportingApp.UI.Controllers
             return this.RedirectToAction("Index");
         }
 
+        [Authorize(Roles = UserRoleApplicant)]
         public async Task<IActionResult> Delete(int failureId)
         {
             await this.mediator.Send(new DeleteFailureCommand(failureId));
@@ -136,6 +175,7 @@ namespace ReportingApp.UI.Controllers
             return this.RedirectToAction("Index");
         }
 
+        [Authorize(Roles = UserRoleApplicant)]
         public async Task<IActionResult> AcceptSolution(int solutionId, int failureId)
         {
             var status = await this.mediator.Send(new GetStatusByNameQuery("In progress"));
@@ -145,6 +185,7 @@ namespace ReportingApp.UI.Controllers
             return this.RedirectToAction("Index");
         }
 
+        [Authorize(Roles = UserRoleApplicant)]
         public async Task<IActionResult> BlankSentence()
         {
             var createFailure = new FailureCategoriesSelectedList();
@@ -158,6 +199,7 @@ namespace ReportingApp.UI.Controllers
             return this.PartialView("_AddFailureType", createFailure);
         }
 
+        [Authorize(Roles = UserRoleApplicant)]
         public async Task<IActionResult> RemoveFailureTypeFromFailure(int failureId, int failureTypeId)
         {
             await this.mediator.Send(new DeleteFailureTypeByIdCommand(failureTypeId));
