@@ -78,10 +78,13 @@ namespace ReportingApp.UI.Controllers
                 return this.View();
             }
 
+            var user = this.userContext.GetCurrentUser();
             var status = await this.mediator.Send(new GetStatusByNameQuery("New"));
+
             newFailure.CreateFailureCommand.StatusId = status.Id;
             newFailure.CreateFailureCommand.Status = null!;
             newFailure.CreateFailureCommand.FailureTypes = await this.AddNewFailuryTypesToFailure(newFailure.AddMoreFailureTypes, newFailure.CreateFailureCommand.FailureTypes);
+            newFailure.CreateFailureCommand.UserId = user.Id;
 
             await this.mediator.Send(newFailure.CreateFailureCommand);
 
