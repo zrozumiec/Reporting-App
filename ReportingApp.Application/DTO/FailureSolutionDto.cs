@@ -17,14 +17,25 @@ namespace ReportingApp.Application.DTO
         /// <summary>
         /// Gets or sets solution expected min cost.
         /// </summary>
-        [DisplayName("Expected cost")]
+        [DisplayName("Expected cost min")]
         public decimal ExpectedCostMin { get; set; }
 
         /// <summary>
         /// Gets or sets solution expected max cost.
         /// </summary>
-        [DisplayName("Expected cost")]
+        [DisplayName("Expected cost max")]
         public decimal ExpectedCostMax { get; set; }
+
+        /// <summary>
+        /// Gets or sets solution expected start time.
+        /// </summary>
+        [DisplayName("Expected start time")]
+        public DateTimeOffset ExpectedStartTime { get; set; }
+        /// <summary>
+        /// Gets or sets solution expected end time.
+        /// </summary>
+        [DisplayName("Expected end time")]
+        public DateTimeOffset ExpectedEndTime { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether solution is accepted.

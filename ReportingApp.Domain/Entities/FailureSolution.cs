@@ -23,6 +23,16 @@ namespace ReportingApp.Domain.Entities
         public decimal ExpectedCostMax { get; set; }
 
         /// <summary>
+        /// Gets or sets solution expected start time.
+        /// </summary>
+        public DateTimeOffset ExpectedStartTime { get; set; }
+
+        /// <summary>
+        /// Gets or sets solution expected end time.
+        /// </summary>
+        public DateTimeOffset ExpectedEndTime { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether solution is accepted.
         /// </summary>
         public bool Accepted { get; set; }
