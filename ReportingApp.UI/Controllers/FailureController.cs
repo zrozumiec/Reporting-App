@@ -16,6 +16,7 @@ using ReportingApp.Application.CQRS.Queries.Failure.GetFailureById;
 using ReportingApp.Application.CQRS.Queries.Solution.GetAllFailureSolutions;
 using ReportingApp.Application.CQRS.Queries.Status.GetStatusByName;
 using ReportingApp.Application.DTO;
+using ReportingApp.UI.Models.Calendar;
 using ReportingApp.UI.Models.FailureSolutions;
 using ReportingApp.UI.Models.FailureVM;
 
@@ -206,6 +207,16 @@ namespace ReportingApp.UI.Controllers
             var failure = await this.mediator.Send(new GetFailureByIdQuery(failureId));
 
             return this.PartialView("_RemoveFailureType", failure);
+        }
+
+        [Authorize(Roles = UserRoleApplicant)]
+
+        public async Task<IActionResult> MyAcceptedFailuresCalendar()
+        {
+            var userId = this.userContext.GetCurrentUser().Id;
+            var events = await CalendarEvent.FillCalendarWithFailureEvents(userId, this.mediator);
+
+            return this.View(events);
         }
 
         private async Task<ICollection<FailureTypeDto>> AddNewFailuryTypesToFailure(List<AddFailureTypeToFailure> failureTypesToAdd, ICollection<FailureTypeDto> failureTypes)
