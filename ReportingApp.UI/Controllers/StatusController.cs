@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ReportingApp.Application.CQRS.Commands.Status.CreateStatus;
 using ReportingApp.Application.CQRS.Commands.Status.DeleteStatus;
@@ -9,6 +10,7 @@ using ReportingApp.Application.CQRS.Queries.Status.GetStatusById;
 
 namespace ReportingApp.UI.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class StatusController : Controller
     {
         private readonly IMediator mediator;
