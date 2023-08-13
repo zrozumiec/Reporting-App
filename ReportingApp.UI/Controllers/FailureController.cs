@@ -60,14 +60,19 @@ namespace ReportingApp.UI.Controllers
             return this.RedirectToAction("Error", "Home");
         }
 
+        [Route("{controller}/{action}/{failureId:int}")]
+
         public async Task<IActionResult> Details(int failureId)
         {
+            var failureSolutions = new FailureSolutionsVM();
             var user = this.userContext.GetCurrentUser();
             var failure = await this.mediator.Send(new GetFailureByIdQuery(failureId));
             var accesToEdit = user.ContainRole(UserRoleApplicant);
 
-            return this.View((failure, accesToEdit));
-        }
+            failureSolutions.Failure = failure;
+            failureSolutions.AccesToAcceptSolution = accesToEdit;
+            failureSolutions.CurrentUserId = user.Id;
+            failureSolutions.AnyAccepted = failure.AnySolutionAccepted;
 
             return this.View(failureSolutions);
         }
@@ -134,7 +139,6 @@ namespace ReportingApp.UI.Controllers
         [Authorize(Roles = UserRoleApplicant)]
         public async Task<IActionResult> Edit(EditFailureVM newFailure)
         {
-
             if (newFailure.AddMoreFailureTypes.Any() && !string.IsNullOrEmpty(newFailure.AddMoreFailureTypes.First().Description))
             {
                 newFailure.EditFailureCommand.Failure.FailureTypes = await this.AddNewFailuryTypesToFailure(newFailure.AddMoreFailureTypes, newFailure.EditFailureCommand.Failure.FailureTypes);
