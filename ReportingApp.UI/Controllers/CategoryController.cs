@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ReportingApp.Application.CQRS.Commands.Category.CreateCategory;
 using ReportingApp.Application.CQRS.Commands.Category.DeleteCategory;
@@ -9,6 +10,7 @@ using ReportingApp.Application.CQRS.Queries.Category.GetCategoryById;
 
 namespace ReportingApp.UI.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CategoryController : Controller
     {
         private readonly IMediator mediator;
