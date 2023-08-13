@@ -12,7 +12,7 @@ function acceptSolution(p1) {
     let failureId = Number(p1)
 
     $.ajax({
-        url: '/Failure/AcceptSolution',
+        url: '/Solution/AcceptSolution',
         type: 'POST',
         data: { 'solutionId': solutionId, 'failureId': failureId },
         async: true,
