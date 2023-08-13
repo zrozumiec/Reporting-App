@@ -1,10 +1,8 @@
-﻿@using ReportingApp.Application.DTO;
-@model (FailureDto, bool)
+﻿@using ReportingApp.UI.Models.FailureSolutions;
+@model FailureSolutionsVM
 
 @{
     ViewData["Title"] = "Details";
-    var failureDto = Model.Item1;
-    var accesToEdit = Model.Item2;
 }
 
 <h1>Details</h1>
@@ -14,64 +12,64 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => failureDto.Id)
+            @Html.DisplayNameFor(model => model.Failure.Id)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => failureDto.Id)
+            @Html.DisplayFor(model => model.Failure.Id)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => failureDto.Name)
+            @Html.DisplayNameFor(model => model.Failure.Name)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => failureDto.Name)
+            @Html.DisplayFor(model => model.Failure.Name)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => failureDto.Status.Name)
+            @Html.DisplayNameFor(model => model.Failure.Status.Name)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => failureDto.Status.Name)
+            @Html.DisplayFor(model => model.Failure.Status.Name)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => failureDto.UserId)
+            @Html.DisplayNameFor(model => model.Failure.UserId)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => failureDto.UserId)
+            @Html.DisplayFor(model => model.Failure.UserId)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => failureDto.Location.Street)
+            @Html.DisplayNameFor(model => model.Failure.Location.Street)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => failureDto.Location.Street)
+            @Html.DisplayFor(model => model.Failure.Location.Street)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => failureDto.Location.City)
+            @Html.DisplayNameFor(model => model.Failure.Location.City)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => failureDto.Location.City)
+            @Html.DisplayFor(model => model.Failure.Location.City)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => failureDto.Location.Country)
+            @Html.DisplayNameFor(model => model.Failure.Location.Country)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => failureDto.Location.Country)
+            @Html.DisplayFor(model => model.Failure.Location.Country)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => failureDto.Location.Factory)
+            @Html.DisplayNameFor(model => model.Failure.Location.Factory)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => failureDto.Location.Factory)
+            @Html.DisplayFor(model => model.Failure.Location.Factory)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => failureDto.Location.Machine)
+            @Html.DisplayNameFor(model => model.Failure.Location.Machine)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => failureDto.Location.Machine)
+            @Html.DisplayFor(model => model.Failure.Location.Machine)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => failureDto.Location.Description)
+            @Html.DisplayNameFor(model => model.Failure.Location.Description)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => failureDto.Location.Description)
+            @Html.DisplayFor(model => model.Failure.Location.Description)
         </dd>
     </dl>
 </div>
@@ -85,7 +83,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => failureDto.Id)
+                @Html.DisplayNameFor(model => model.Failure.Id)
             </th>
             <th>
                 Category Name
@@ -97,7 +95,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in failureDto.FailureTypes)
+        @foreach (var item in Model.Failure.FailureTypes)
         {
             <tr>
                 <td>
@@ -114,29 +112,24 @@
     </tbody>
 </table>
 
-@if (failureDto.FailureSolutions.Any())
+@if (Model.Failure.FailureSolutions.Any())
 {
-    <partial name="_FailureSolutions" model="(failureDto.FailureSolutions, failureDto.AnySolutionAccepted)" />
+    <partial name="~/Views/Solution/_FailureSolutions.cshtml" model="Model" />
 }
 
 <div>
-    @if (accesToEdit && failureDto.AnySolutionAccepted)
+    @if (Model.AccesToAddSolution && Model.Failure.AnySolutionAccepted)
     {
         <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-bs-animation="true" title="You are not able to edit failure with accepted solution!">
             <a class="btn btn-primary btn-sm disabled" href="" )">Edit</a>
         </span>
     }
-    else if (accesToEdit && !failureDto.AnySolutionAccepted)
+    else if (Model.AccesToAddSolution && !Model.Failure.AnySolutionAccepted)
     {
-        <a class="btn btn-primary btn-sm" href="@Url.Action("Edit", "Failure", new { failureId = failureDto.Id })">Edit</a>
+        <a class="btn btn-primary btn-sm" href="@Url.Action("Edit", "Failure", new { failureId = Model.Failure.Id })">Edit</a>
     }
     <br />
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts
 {
     <script src="~/js/modal-alert/modal-alert.js"></script>
