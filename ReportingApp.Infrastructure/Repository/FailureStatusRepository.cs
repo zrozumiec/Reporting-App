@@ -34,7 +34,7 @@ namespace ReportingApp.Infrastructure.Repository
         }
 
         /// <inheritdoc/>
-        public async Task<FailureStatus?> GetByIdAsync(int id)
+        public override async Task<FailureStatus?> GetByIdAsync(int id)
         {
             var status = await this.DbSet
                 .AsNoTracking()
