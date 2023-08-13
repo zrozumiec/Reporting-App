@@ -1,13 +1,13 @@
-﻿@model (ICollection<ReportingApp.Application.DTO.FailureDto>, bool)
+﻿@using ReportingApp.UI.Models.FailureVM;
+@model FailuresListVM;
 
 @{
     ViewData["Title"] = "Index";
-    var accesToEdit = Model.Item2;
 }
 
 <h1>Index</h1>
 
-@if (accesToEdit)
+@if (Model.AccesToEdit)
 {
     <p>
         <a class="btn btn-primary btn-sm" asp-action="Create">Create New</a>
@@ -36,7 +36,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Item1)
+        @foreach (var item in Model.Failures)
         {
             <tr>
                 <td align="center">
@@ -55,7 +55,7 @@
                     @Html.DisplayFor(modelItem => item.AnySolutionAccepted)
                 </td>
                 <td>
-                    @if (accesToEdit)
+                    @if (Model.AccesToEdit)
                     {
                         @if (item.AnySolutionAccepted)
                         {
@@ -70,9 +70,9 @@
                     }
 
                     <a class="btn btn-primary btn-sm" href="@Url.Action("Details", "Failure", new { failureId = item.Id })">Details</a>
-                    <a class="btn btn-primary btn-sm" href="@Url.Action("Solutions", "Failure", new { failureId = item.Id })">Solutions</a>
+                    <a class="btn btn-primary btn-sm" href="@Url.Action("Index", "Solution", new { failureId = item.Id })">Solutions</a>
 
-                    @if (accesToEdit)
+                    @if (Model.AccesToEdit)
                     {
                         @if (item.AnySolutionAccepted)
                         {
@@ -82,7 +82,7 @@
                         }
                         else
                         {
-                            <a class="btn btn-primary btn-sm" href="@Url.Action("Delete", "Failure", new { failureId = item.Id })">Delete</a>
+                            <a onclick="return confirm('Do you want to delete this row?')" class="btn btn-primary btn-sm" href="@Url.Action("Delete", "Failure", new { failureId = item.Id })">Delete</a>
                         }
                     }
                 </td>
