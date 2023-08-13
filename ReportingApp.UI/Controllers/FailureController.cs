@@ -69,25 +69,7 @@ namespace ReportingApp.UI.Controllers
             return this.View((failure, accesToEdit));
         }
 
-        public async Task<IActionResult> Solutions(int failureId)
-        {
-            var user = this.userContext.GetCurrentUser();
-            var failureSolution = new FailureSolutionsVM();
-            var solutions = await this.mediator.Send(new GetAllFailureSolutionsQuery(failureId));
-
-            failureSolution.Solutions = solutions;
-            failureSolution.AnyAccepted = solutions.Any(x => x.Accepted);
-
-            var accesToAdd = (user.ContainRole(UserRoleAdmin) || user.ContainRole(UserRoleReceiver)) && !failureSolution.AnyAccepted;
-
-            return this.View((failureSolution, accesToAdd));
-        }
-
-        [HttpGet]
-        [Authorize(Roles = UserRoleReceiver)]
-        public async Task<IActionResult> CreateSolution()
-        {
-             return this.View();
+            return this.View(failureSolutions);
         }
 
         [HttpGet]
@@ -172,16 +154,6 @@ namespace ReportingApp.UI.Controllers
         public async Task<IActionResult> Delete(int failureId)
         {
             await this.mediator.Send(new DeleteFailureCommand(failureId));
-
-            return this.RedirectToAction("Index");
-        }
-
-        [Authorize(Roles = UserRoleApplicant)]
-        public async Task<IActionResult> AcceptSolution(int solutionId, int failureId)
-        {
-            var status = await this.mediator.Send(new GetStatusByNameQuery("In progress"));
-            await this.mediator.Send(new EditFailureStatusCommand(failureId, status.Id));
-            await this.mediator.Send(new AcceptSolutionCommand(solutionId));
 
             return this.RedirectToAction("Index");
         }
