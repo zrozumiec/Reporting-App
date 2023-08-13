@@ -73,6 +73,7 @@ namespace ReportingApp.Infrastructure.Repository
         {
             return await this.DbSet
                 .AsNoTracking()
+                .Include(x => x.FailureSolutions)
                 .Where(x => x.UserId == userId)
                 .ToListAsync();
         }
