@@ -1,0 +1,45 @@
+﻿@using ReportingApp.UI.Models.Calendar;
+@model IEnumerable<CalendarEvent>
+
+@{
+    var arrayEvents = @Html.Raw(Json.Serialize(Model));
+}
+
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.1.0/main.min.css">
+</head>
+
+<body>
+    <div id='calendar'></div>
+</body>
+
+<div class="modal" role="dialog" id="myModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Short solution information</h5>
+            </div>
+            <div class="modal-body">
+                <p id="modalData1"></p>
+                <p id="modalData2"></p>
+                <p id="modalData3"></p>
+                <p id="modalData4"></p>
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-primary" onclick="goToAction()">Details</a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
+<script src="/js/Calendar/Calendar.js"></script>
+<script>
+    if (@Model.Count() > 0) {
+        showCalendarEvents(@arrayEvents);
+    }
+    else {
+        showCalendar();
+    }
+</script>
