@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ReportingApp.Application.CQRS.Commands.Solution.EditSolution;
 using ReportingApp.Application.DTO;
 using ReportingApp.Domain.Entities;
 
@@ -16,6 +17,7 @@ namespace ReportingApp.Application.MapperProfiles
         {
             this.CreateMap<FailureSolution, FailureSolutionDto>()
                 .ReverseMap();
+            this.CreateMap<FailureSolutionDto, EditSolutionCommand>();
         }
     }
 }
