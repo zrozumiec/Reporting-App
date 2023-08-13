@@ -5,15 +5,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using ReportingApp.Application.ApplicationUser;
 using ReportingApp.Application.CQRS.Commands.Failure.DeleteFailure;
 using ReportingApp.Application.CQRS.Commands.Failure.EditFailure;
-using ReportingApp.Application.CQRS.Commands.Failure.EditFailureStatus;
 using ReportingApp.Application.CQRS.Commands.FailureType.GetFailureTypeById;
-using ReportingApp.Application.CQRS.Commands.Solution.AcceptSolution;
 using ReportingApp.Application.CQRS.Queries.Category.GetAllCategories;
 using ReportingApp.Application.CQRS.Queries.Category.GetCategoryById;
 using ReportingApp.Application.CQRS.Queries.Failure.GetAllFailures;
 using ReportingApp.Application.CQRS.Queries.Failure.GetAllUserFailures;
 using ReportingApp.Application.CQRS.Queries.Failure.GetFailureById;
-using ReportingApp.Application.CQRS.Queries.Solution.GetAllFailureSolutions;
 using ReportingApp.Application.CQRS.Queries.Status.GetStatusByName;
 using ReportingApp.Application.DTO;
 using ReportingApp.UI.Models.Calendar;
@@ -22,7 +19,7 @@ using ReportingApp.UI.Models.FailureVM;
 
 namespace ReportingApp.UI.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class FailureController : Controller
     {
         private const string UserRoleReceiver = "Receiver";
