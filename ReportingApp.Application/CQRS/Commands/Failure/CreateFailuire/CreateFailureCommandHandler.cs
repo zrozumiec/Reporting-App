@@ -28,6 +28,9 @@ namespace ReportingApp.Application.CQRS.Commands.Failure.CreateFailuire
         {
             var failure = this.mapper.Map<Domain.Entities.Failure>(request);
 
+            failure.Status = null!;
+            failure.User = null!;
+
             return await this.repository.AddAsync(failure);
         }
     }
