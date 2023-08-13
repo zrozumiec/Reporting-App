@@ -1,3 +1,4 @@
+using System.Globalization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ReportingApp.Application.Extensions;
@@ -25,6 +26,13 @@ builder.Services.RegisterFluentValidator();
 builder.Services.RegisterUserContext();
 
 var app = builder.Build();
+
+var cultureInfo = new CultureInfo("en-US");
+cultureInfo.NumberFormat.CurrencySymbol = "€";
+cultureInfo.NumberFormat.NumberDecimalSeparator = ".";
+
+CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
