@@ -1,0 +1,84 @@
+﻿@using ReportingApp.Application.DTO;
+@model IEnumerable<FailureSolutionDto>
+
+@{
+    ViewData["Title"] = "MySolutions";
+}
+
+<h1>MySolutions</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExpectedCostMin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExpectedCostMax)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExpectedStartTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExpectedEndTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Accepted)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FailureId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExpectedCostMin)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExpectedCostMax)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExpectedStartTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExpectedEndTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Accepted)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FailureId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                @if (!item.Accepted)
+                {
+                    <td>
+                        <a class="btn btn-primary btn-sm" href="@Url.Action("Edit", "Solution", new { solutionId = item.Id })">Edit</a>
+                        <a onclick="return confirm('Do you want to delete this solution?')" class="btn btn-primary btn-sm" href="@Url.Action("Delete", "Solution", new { solutionId = item.Id })">Delete</a>
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>

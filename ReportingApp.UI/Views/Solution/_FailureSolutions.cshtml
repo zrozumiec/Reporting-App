@@ -1,10 +1,6 @@
 ﻿@using ReportingApp.Application.DTO;
-@model (ICollection<FailureSolutionDto>, bool)
-
-@{
-    var failureSolutionCollection = Model.Item1;
-    var accesToAcceptSolution = Model.Item2;
-}
+@using ReportingApp.UI.Models.FailureSolutions;
+@model FailureSolutionsVM
 
 <hr class="my-auto flex-grow-1" />
 <div class="align-self-center justify-content-center">
@@ -24,6 +20,12 @@
                 @Html.DisplayNameForInnerType((FailureSolutionDto solution) => solution.ExpectedCostMin)
             </th>
             <th>
+                @Html.DisplayNameForInnerType((FailureSolutionDto solution) => solution.ExpectedStartTime)
+            </th>
+            <th>
+                @Html.DisplayNameForInnerType((FailureSolutionDto solution) => solution.ExpectedEndTime)
+            </th>
+            <th>
                 @Html.DisplayNameForInnerType((FailureSolutionDto solution) => solution.User.UserName)
             </th>
             <th>
@@ -33,7 +35,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in failureSolutionCollection)
+        @foreach (var item in Model.Failure.FailureSolutions)
         {
             <tr>
                 <td>
@@ -46,12 +48,18 @@
                     @Html.DisplayFor(modelItem => item.ExpectedCostMin) - @Html.DisplayFor(modelItem => item.ExpectedCostMax)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.ExpectedStartTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExpectedEndTime)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.UserId)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Accepted)
                 </td>
-                @if (!item.Accepted && !accesToAcceptSolution)
+                @if (!item.Accepted && !Model.AnyAccepted && Model.AccesToAcceptSolution)
                 {
                     <td>
                         <a data-bs-toggle="modal" data-bs-target="#acceptSolutionDialog" data-id="@item.Id" title="Accept" class="open-AddSolutionDialog btn btn-primary">Accept</a>
@@ -76,11 +84,22 @@
                         </div>
                     </td>
                 }
+                @if (Model.CurrentUserId == item.UserId && !item.Accepted)
+                {
+                    <td>
+                        <a class="btn btn-primary btn-sm" href="@Url.Action("Edit", "Solution", new { solutionId = item.Id })">Edit</a>
+                        <a onclick="return confirm('Do you want to delete this solution?')" class="btn btn-primary btn-sm" href="@Url.Action("Delete", "Solution", new { solutionId = item.Id })">Delete</a>
+                    </td>
+                }
             </tr>
         }
     </tbody>
 </table>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-controller="Failure" asp-action="Index">Back to List</a>
+    <br/>
+    <a asp-action="MyAcceptedSolutionsCalendar" asp-controller="Solution">Back to calendar</a>
 </div>
+
+@*<script src="~/js/modal-alert/modal-alert.js"></script>*@

@@ -1,0 +1,22 @@
+﻿@using ReportingApp.UI.Models.FailureSolutions;
+@model FailureSolutionsVM
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Solutions</h1>
+
+@if (Model.AccesToAddSolution)
+{
+    <p>
+        <a class="btn btn-primary btn-sm" asp-action="Create" asp-route-failureId="@Model.Failure.Id">Create New</a>
+    </p>
+}
+
+<partial name="_FailureSolutions" model="(Model)" />
+
+@section Scripts
+    {
+    <script src="~/js/modal-alert/modal-alert.js"></script>
+}
