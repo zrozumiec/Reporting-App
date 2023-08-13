@@ -89,5 +89,15 @@ namespace ReportingApp.Infrastructure.Repository
                 .Include(x => x.FailureTypes).ThenInclude(x => x.Category)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
+
+        /// <inheritdoc/>
+        public async Task<IEnumerable<FailureSolution>> GetUserAcceptedFailuresAsync(string userId)
+        {
+            var userFilures = await this.DbSet.Include(x => x.FailureSolutions).Where(x => x.UserId == userId).ToListAsync();
+
+            var acceptedFailures = userFilures.SelectMany(x => x.FailureSolutions.Where(x => x.Accepted));
+
+            return acceptedFailures;
+        }
     }
 }
