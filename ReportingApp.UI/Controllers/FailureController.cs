@@ -41,20 +41,21 @@ namespace ReportingApp.UI.Controllers
         public async Task<IActionResult> Index()
         {
             var user = this.userContext.GetCurrentUser();
+            var failures = new FailuresListVM();
 
             if (user.ContainRole(UserRoleReceiver))
             {
-                var failures = await this.mediator.Send(new GetAllFailuresQuery());
-                var accesToEdit = false;
+                failures.Failures = await this.mediator.Send(new GetAllFailuresQuery());
+                failures.AccesToEdit = false;
 
-                return this.View((failures, accesToEdit));
+                return this.View(failures);
             }
             else if (user.ContainRole(UserRoleApplicant) || user.ContainRole(UserRoleAdmin))
             {
-                var failures = await this.mediator.Send(new GetAllUserFailuresQuery(user.Id));
-                var accesToEdit = true;
+                failures.Failures = await this.mediator.Send(new GetAllUserFailuresQuery(user.Id));
+                failures.AccesToEdit = true;
 
-                return this.View((failures, accesToEdit));
+                return this.View(failures);
             }
 
             return this.RedirectToAction("Error", "Home");
