@@ -67,5 +67,13 @@ namespace ReportingApp.Infrastructure.Repository
 
             return solutions;
         }
+
+        /// <inheritdoc/>
+        public async Task<ICollection<FailureSolution>> GetAllUserFailureSolutionsAsync(string userId)
+        {
+            var userSolutions = await this.DbSet.Where(x => x.UserId == userId).ToListAsync();
+
+            return userSolutions;
+        }
     }
 }

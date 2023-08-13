@@ -22,5 +22,13 @@ namespace ReportingApp.Domain.Interfaces
         /// <param name="failureId">Failure id.</param>
         /// <returns>Collection of failure solutions.</returns>
         public Task<ICollection<FailureSolution>> GetAllFailureSolutionsAsync(int failureId);
+
+        /// <summary>
+        /// Async method to get all user failure solutions.
+        /// </summary>
+        /// <param name="userId">User id.</param>
+        /// <returns>Collection of user failure solutions.</returns>
+        public Task<ICollection<FailureSolution>> GetAllUserFailureSolutionsAsync(string userId);
+
     }
 }
