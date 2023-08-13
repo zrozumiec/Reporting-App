@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ReportingApp.Domain.Entities;
+using System.Reflection.Emit;
 
 namespace ReportingApp.Infrastructure
 {
@@ -56,6 +57,7 @@ namespace ReportingApp.Infrastructure
             builder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
         }
 
+        /// <inheritdoc/>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
