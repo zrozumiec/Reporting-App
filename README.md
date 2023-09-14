@@ -10,6 +10,10 @@ Application to reporting failures of machines and searching specialist who can s
 
 # Used technologies:
 - C# (.Net 6.0)
+- ASP .NET MVC
+- MS SQL Server
+- Bootstrap
+- JS
 
 ![L0](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
