@@ -1,8 +1,255 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+@using ReportingApp.Domain.Entities;
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Regna Bootstrap Template</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="~/img/favicon.png" rel="icon">
+    <link href="~/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="~/vendor/aos/aos.css" rel="stylesheet">
+    <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="~/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="~/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="~/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="~/css/style.css" rel="stylesheet">
+
+    <!-- =======================================================
+    * Template Name: Regna
+    * Updated: Jul 27 2023 with Bootstrap v5.3.1
+    * Template URL: https://bootstrapmade.com/regna-bootstrap-onepage-template/
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
+</head>
+
+<body>
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top d-flex align-items-center header-transparent">
+        <div class="container d-flex justify-content-between align-items-center">
+            <nav id="navbar" class="navbar">
+                <partial name="_LoginPartial" />
+                <partial name="_MenuNavigation" />
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav><!-- .navbar -->
+        </div>
+    </header><!-- End Header -->
+    <!-- ======= Hero Section ======= -->
+    <section id="hero">
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="~/img/carousel/carousel0.jpg" class="d-block w-100" alt="carousel1">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/img/carousel/carousel1.png" class="d-block w-100" alt="carousel2">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/img/carousel/carousel4.jpg" class="d-block w-100" alt="carousel3">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/img/carousel/carousel5.jpg" class="d-block w-100" alt="carousel4">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/img/carousel/carousel6.jpg" class="d-block w-100" alt="carousel5">
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-container" data-aos="zoom-in" data-aos-delay="100">
+            <h1>Welcome to <span style="color:#2dc997">TechSupportHub! </span></h1>
+            <h2>Our application is designed for individuals in need of specialized support for machine breakdown repairs, as well as for experts offering such services.</h2>
+            <ul id="getStartButtons">
+                <a class="btn-get-started" asp-area="Identity" asp-page="/Account/Register">Register</a>
+                <a class="btn-get-started" asp-area="Identity" asp-page="/Account/Login">Login</a>
+            </ul>
+        </div>
+    </section><!-- End Hero Section -->
+
+    <main id="main">
+
+        <!-- ======= About Section ======= -->
+        <section id="about">
+            <div class="about-container" data-aos="fade-up">
+                <div class="row about-container">
+
+                    <div class="col-lg-6 content order-lg-1 order-2">
+                        <h2 class="title">Few Words About Us</h2>
+                        <p>
+                            TechSupportHub is a versatile and user-friendly application designed to connect individuals facing machine breakdowns with specialized experts capable of providing precise solutions. This platform serves as a central hub for seeking and offering support in the realm of machine repairs. Users can easily submit detailed reports about the malfunction, ensuring experts receive all necessary information for accurate diagnosis and resolution.
+                        </p>
+
+                        <partial name="_About" model="@("bi bi-person-fill", "Applicant", "The person who have some problems with machines and looking for help to solve this problems.")" />
+                        <partial name="_About" model="@("bi bi-person-fill-gear", "Receiver", "The person who are a service provider and want to troubleshoot failures.")" />
+
+                    </div>
+
+                    <div class="col-lg-6 background order-lg-2 order-1" data-aos="fade-left" data-aos-delay="100"></div>
+                </div>
+
+            </div>
+        </section><!-- End About Section -->
+        <!-- ======= Facts Section ======= -->
+        <section id="facts">
+            <div class="container" data-aos="fade-up">
+                <div class="section-header">
+                    <h3 class="section-title">Facts</h3>
+                </div>
+                <div class="row counters">
+                    <partial name="_FactsNumbers" model="@("Applicants", 154)" />
+                    <partial name="_FactsNumbers" model="@("Receivers", 64)" />
+                    <partial name="_FactsNumbers" model="@("Open reports", 121)" />
+                    <partial name="_FactsNumbers" model="@("Closed reports",432)" />
+                </div>
+
+            </div>
+        </section><!-- End Facts Section -->
+        <!-- ======= Call To Action Section ======= -->
+        <section id="call-to-action">
+            <div class="container">
+                <div class="row" data-aos="zoom-in">
+                    <div class="col-lg-9 text-center text-lg-start">
+                        <h3 class="cta-title">Let's start</h3>
+                        <p class="cta-text">
+                            We're excited to embark on this journey together!
+                            Our user-friendly application is designed to revolutionize the way you find experts to solve your machine problems.
+                            Whether you're a factory manager, a maintenance technician, or a curious DIY enthusiast,
+                            our intuitive interface and powerful features are tailored to meet your specific needs.
+                        </p>
+                    </div>
+                    <div class="col-lg-3 cta-btn-container text-center">
+                        <a class="cta-btn align-middle" asp-area="Identity" asp-page="/Account/Register">Register</a>
+                        <a class="cta-btn align-middle" asp-area="Identity" asp-page="/Account/Login">Login</a>
+                    </div>
+                </div>
+
+            </div>
+        </section><!-- End Call To Action Section -->
+        <!-- ======= Customers Section ======= -->
+        <section id="customers">
+            <div class="container" data-aos="fade-up">
+                <div class="section-header">
+                    <h3 class="section-title">Our customers</h3>
+                    <p class="section-description">Companies that cooperate with us</p>
+                </div>
+                <div class="row">
+                    <partial name="_Customers" model="@("img/customers/customer1.png", "Eureka Solutions")" />
+                    <partial name="_Customers" model="@("img/customers/customer2.png", "Apex Creations")" />
+                    <partial name="_Customers" model="@("img/customers/customer3.png", "Quantum Ideas")" />
+                    <partial name="_Customers" model="@("img/customers/customer4.png", "Futura Labs")" />
+                </div>
+
+            </div>
+        </section><!-- End Customers Section -->
+        <!-- ======= Contact Section ======= -->
+        <section id="contact">
+            <div class="container">
+                <div class="section-header">
+                    <h3 class="section-title">Contact</h3>
+                    <p class="section-description">We're thrilled to hear from you! Whether you have questions about our innovative products, want to discuss a potential collaboration, or simply want to say hello, we'd love to connect.</p>
+                </div>
+            </div>
+
+            <iframe src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Rzesz%C3%B3w+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed" width="100%" height="380" frameborder="0" style="border:0" allowfullscreen></iframe>
+            <div class="container mt-5">
+                <div class="row justify-content-center">
+
+                    <div class="col-lg-3 col-md-4">
+
+                        <div class="info">
+                            <div>
+                                <i class="bi bi-geo-alt"></i>
+                                <p>ul. Krakowska 123<br>Rzeszów</p>
+                            </div>
+
+                            <div>
+                                <i class="bi bi-envelope"></i>
+                                <p>info@example.com</p>
+                            </div>
+
+                            <div>
+                                <i class="bi bi-phone"></i>
+                                <p>+48 987 452 123</p>
+                            </div>
+                        </div>
+
+                        <div class="social-links">
+                            <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                            <a href="#" class="globe"><i class="bi bi-globe"></i></a>
+                            <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-5 col-md-8">
+                        <div class="form">
+                            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+                                <div class="form-group">
+                                    <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+                                </div>
+                                <div class="my-3">
+                                    <div class="loading">Loading</div>
+                                    <div class="error-message"></div>
+                                    <div class="sent-message">Your message has been sent. Thank you!</div>
+                                </div>
+                                <div class="text-center"><button type="submit">Send Message</button></div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section><!-- End Contact Section -->
+
+    </main><!-- End #main -->
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="~/vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="~/vendor/aos/aos.js"></script>
+    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="~/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="~/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="~/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="~/js/main.js"></script>
+</body>
+
+</html>
