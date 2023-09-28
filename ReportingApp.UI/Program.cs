@@ -24,6 +24,7 @@ builder.Services.RegisterMediatR();
 builder.Services.RegisterRepositories();
 builder.Services.RegisterFluentValidator();
 builder.Services.RegisterUserContext();
+builder.Services.RegisterOtherServices();
 
 var app = builder.Build();
 

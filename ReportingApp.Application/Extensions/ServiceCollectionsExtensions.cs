@@ -4,6 +4,7 @@ using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
 using ReportingApp.Application.ApplicationUser;
 using ReportingApp.Application.CQRS.Commands.Category.CreateCategory;
+using ReportingApp.Application.Email;
 using ReportingApp.Application.MapperProfiles;
 
 namespace ReportingApp.Application.Extensions
@@ -58,6 +59,15 @@ namespace ReportingApp.Application.Extensions
         public static void RegisterUserContext(this IServiceCollection services)
         {
             services.AddScoped<IUserContext, UserContext>();
+        }
+
+        /// <summary>
+        /// Inject send email service to DI service.
+        /// </summary>
+        /// <param name="services">Extension IServiceCollection.</param>
+        public static void RegisterOtherServices(this IServiceCollection services)
+        {
+            services.AddScoped<IEmailService, EmailService>();
         }
     }
 }
