@@ -1,7 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@using ReportingApp.Application.Email;
 @using ReportingApp.Domain.Entities;
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+@model EmailModel;
 
 @{
     ViewData["Title"] = "Home Page";
@@ -73,9 +75,6 @@
                 <div class="carousel-item">
                     <img src="~/img/carousel/carousel5.jpg" class="d-block w-100" alt="carousel4">
                 </div>
-                <div class="carousel-item">
-                    <img src="~/img/carousel/carousel6.jpg" class="d-block w-100" alt="carousel5">
-                </div>
             </div>
         </div>
 
@@ -84,7 +83,7 @@
             <h2>Our application is designed for individuals in need of specialized support for machine breakdown repairs, as well as for experts offering such services.</h2>
             <ul id="getStartButtons">
                 <a class="btn-get-started" asp-area="Identity" asp-page="/Account/Register">Register</a>
-                <a class="btn-get-started" asp-area="Identity" asp-page="/Account/Login">Login</a>
+                <a class="btn-get-started" asp-area="Identity" asp-page="/Account/Login">Log in</a>
             </ul>
         </div>
     </section><!-- End Hero Section -->
@@ -142,7 +141,7 @@
                     </div>
                     <div class="col-lg-3 cta-btn-container text-center">
                         <a class="cta-btn align-middle" asp-area="Identity" asp-page="/Account/Register">Register</a>
-                        <a class="cta-btn align-middle" asp-area="Identity" asp-page="/Account/Login">Login</a>
+                        <a class="cta-btn align-middle" asp-area="Identity" asp-page="/Account/Login">Log in</a>
                     </div>
                 </div>
 
@@ -187,7 +186,7 @@
 
                             <div>
                                 <i class="bi bi-envelope"></i>
-                                <p>info@example.com</p>
+                                <p>reportingappmvc@gmail.com</p>
                             </div>
 
                             <div>
@@ -203,23 +202,22 @@
                             <a href="#" class="globe"><i class="bi bi-globe"></i></a>
                             <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
                         </div>
-
                     </div>
 
                     <div class="col-lg-5 col-md-8">
                         <div class="form">
-                            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+                            <form class="php-email-form" asp-action="SendEmail" asp-controller="Home" method="post" role="form">
                                 <div class="form-group">
-                                    <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                                    <input asp-for="UserName" type="text" name="username" class="form-control" id="username" placeholder="Your Name" required>
                                 </div>
                                 <div class="form-group mt-3">
-                                    <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+                                    <input asp-for="UserEmail" type="email" class="form-control" name="useremail" id="useremail" placeholder="Your Email" required>
                                 </div>
                                 <div class="form-group mt-3">
-                                    <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+                                    <input asp-for="Subject" type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
                                 </div>
                                 <div class="form-group mt-3">
-                                    <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+                                    <textarea asp-for="Body" type="text" class="form-control" name="body" itemid="body" rows="5" placeholder="Message" required></textarea>
                                 </div>
                                 <div class="my-3">
                                     <div class="loading">Loading</div>
@@ -230,9 +228,7 @@
                             </form>
                         </div>
                     </div>
-
                 </div>
-
             </div>
         </section><!-- End Contact Section -->
 
