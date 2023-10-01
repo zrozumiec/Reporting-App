@@ -1,0 +1,36 @@
+﻿#register{
+    width: 30vw;
+}
+
+#login {
+    width: 30vw;
+}
+
+.innerbtn {
+    border-color: #2dca98;
+    background-color: #2dca98;
+    color: white;
+}
+
+@media (max-width: 825px) {
+    .col-md {
+        flex: 1 0 100% !important;
+    }
+}
+
+.form-check-input:checked {
+    background-color: #2dca98;
+    border-color: #2dca98;
+}
+
+.checkbox{
+    color: #eee;
+}
+
+.login-options > p{
+    margin: 0;
+}
+
+.login-options > p > a {
+    color: #eee;
+}
