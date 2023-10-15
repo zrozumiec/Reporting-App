@@ -17,8 +17,6 @@ using ReportingApp.Domain.Entities;
 #pragma warning disable SA1101 // Prefix local calls with this
 #pragma warning disable SA1623 // Property summary documentation should match accessors
 #pragma warning disable SA1201 // Elements should appear in the correct order
-#pragma warning disable IDE0037 // Use inferred member name
-
 
 namespace ReportingApp.UI.Areas.Identity.Pages.Account
 {
