@@ -6,6 +6,14 @@
     width: 30vw;
 }
 
+#forgot-password {
+    width: 30vw;
+}
+
+#resend-email {
+    width: 30vw;
+}
+
 .innerbtn {
     border-color: #2dca98;
     background-color: #2dca98;
