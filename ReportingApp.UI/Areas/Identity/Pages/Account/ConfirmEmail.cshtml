@@ -4,5 +4,36 @@
     ViewData["Title"] = "Confirm email";
 }
 
-<h1>@ViewData["Title"]</h1>
-<partial name="_StatusMessage" model="Model.StatusMessage" />
+<body>
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top d-flex align-items-center header-transparent">
+        <div class="container d-flex justify-content-between align-items-center">
+            <nav id="navbar" class="navbar">
+                <ul id="others">
+                    <li><a class="nav-link scrollto" href="@Url.Action("Index", "Home")">Home</a></li>
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav><!-- .navbar -->
+        </div>
+    </header><!-- End Header -->
+    <!-- ======= Hero Section ======= -->
+    <section id="hero">
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="~/img/carousel/carousel1.png" class="d-block w-100" alt="carousel2">
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-container" data-aos="zoom-in" data-aos-delay="100">
+            <div class="row">
+                <div class="col-lg-auto offset-lg-auto" id="forgot-password">
+                    <partial name="_StatusMessage" model="Model.StatusMessage" />
+
+                </div>
+            </div>
+        </div>
+    </section><!-- End Hero Section -->
+</body>
+

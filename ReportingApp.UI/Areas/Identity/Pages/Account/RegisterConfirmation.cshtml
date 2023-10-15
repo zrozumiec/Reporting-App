@@ -1,23 +1,14 @@
 ﻿@page
-@model ForgotPasswordModel
+@model RegisterConfirmationModel
 @{
-    ViewData["Title"] = "Forgot your password?";
+    ViewData["Title"] = "Register confirmation";
 }
-
-<head>
-    <link href="~/css/login-register-style.css" rel="stylesheet">
-</head>
 
 <body>
     <!-- ======= Header ======= -->
     <header id="header" class="fixed-top d-flex align-items-center header-transparent">
         <div class="container d-flex justify-content-between align-items-center">
             <nav id="navbar" class="navbar">
-                <ul id="login-register">
-                    <li>
-                        <a class="nav-link scrollto" asp-area="Identity" asp-page="/Account/Login">Log in</a>
-                    </li>
-                </ul>
                 <ul id="others">
                     <li><a class="nav-link scrollto" href="@Url.Action("Index", "Home")">Home</a></li>
                 </ul>
@@ -25,7 +16,6 @@
             </nav><!-- .navbar -->
         </div>
     </header><!-- End Header -->
-
     <!-- ======= Hero Section ======= -->
     <section id="hero">
         <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
@@ -39,22 +29,11 @@
         <div class="hero-container" data-aos="zoom-in" data-aos-delay="100">
             <div class="row">
                 <div class="col-lg-auto offset-lg-auto" id="forgot-password">
-                    <form method="post">
-                        <h2>Enter your email.</h2>
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <div class="form-floating mb-1">
-                            <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
-                            <label asp-for="Input.Email" class="form-label"></label>
-                            <span asp-validation-for="Input.Email" class="text-danger"></span>
-                        </div>
-                        <button type="submit" class="w-100 btn btn-lg innerbtn">Reset Password</button>
-                    </form>
+                    <h2 style="color: #2dca98">
+                        Please check your email to confirm your account.
+                    </h2>
                 </div>
             </div>
         </div>
     </section><!-- End Hero Section -->
 </body>
-
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
