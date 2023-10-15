@@ -14,9 +14,13 @@
 
         public string Body { get; set; }
 
-        public void SetEmailToFromAddress(string emailAddress)
+        public void SetEmailToAddress(string emailAddress)
         {
             this.To = emailAddress;
+        }
+
+        public void SetEmailFromAddress(string emailAddress)
+        {
             this.From = emailAddress;
         }
     }
